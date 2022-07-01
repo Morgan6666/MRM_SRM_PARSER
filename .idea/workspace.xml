@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a2a267d0-da45-41fa-a5f9-719b018cc714" name="Changes" comment="" />
+    <list default="true" id="a2a267d0-da45-41fa-a5f9-719b018cc714" name="Changes" comment="First">
+      <change afterPath="$PROJECT_DIR$/proteomeScoutAPI/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/peptide.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/data/peptide.tsv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proteomeScoutAPI/proteomeScoutAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/proteomeScoutAPI/proteomeScoutAPI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/Peptide_atls.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/Peptide_atls.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,23 +21,28 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="29EtNd0ZN59bZiH2KAPphlg9A5k" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/bairamkulov_dd/PycharmProjects/MRM_SRM_PARSER&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/bairamkulov_dd/PycharmProjects/MRM_SRM_PARSER",
+    "settings.editor.selected.configurable": "terminal"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\bairamkulov_dd\PycharmProjects\MRM_SRM_PARSER" />
@@ -132,7 +144,17 @@
       <workItem from="1656073352699" duration="486000" />
       <workItem from="1656073874284" duration="3907000" />
       <workItem from="1656404170617" duration="40407000" />
+      <workItem from="1656668953472" duration="723000" />
+      <workItem from="1656682590979" duration="4753000" />
     </task>
+    <task id="LOCAL-00001" summary="First">
+      <created>1656669057641</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1656669057641</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TerminalProjectNonSharedOptionsProvider">
@@ -140,6 +162,21 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="First" />
+    <option name="LAST_COMMIT_MESSAGE" value="First" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

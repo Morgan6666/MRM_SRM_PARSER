@@ -3,12 +3,16 @@ from selenium.webdriver.chrome.options import Options
 import requests, sys
 from dataclasses import dataclass
 from pyteomics import parser
+
+
 import numpy as np
 
 
 
 
 #prefs = {"download.default_directory": 'C:\\Users\\bairamkulov_dd\\PycharmProjects\\MRM_SRM_PARSER/data'}
+import proteomeScoutAPI
+
 chrome_options = Options()
 chrome_options.add_argument("--disable-extensions")
 chrome_options.add_argument('--start-maximized')
@@ -22,6 +26,10 @@ chrome_options.add_experimental_option("prefs", prefs)
 @dataclass(frozen = True)
 class ParserBuilding:
     file: str
+
+    @property
+    def proteomeScout(self):
+        """Return list of proteins modifications"""
 
     @property
     def uniprot(self, iD):
@@ -58,7 +66,6 @@ class SelectingPeptides(ParserBuilding):
         res_begin = []
         res_end = []
         res_peptide = []
-        res_unique = []
         res_position = []
         print("######################################### Get proteins information from uniprot ###########################################")
         try:
@@ -165,7 +172,8 @@ class SelectingPeptides(ParserBuilding):
 
 
     def selectingByModifications(self):
-        bad_positions = []
+        bad_positions_start = []
+        bad_position_end = []
         peptideTable = self.selectingByRules()
         ptm = pd.read_csv('../data/modification_table.txt')
         merge_table  = pd.merge(peptideTable,ptm, on = 'accession')
@@ -173,17 +181,26 @@ class SelectingPeptides(ParserBuilding):
             for pos, nextv, begin, end in zip(merge_table['Position'], merge_table['Next value'], merge_table['begin'], merge_table['end']):
                 if pos != pos  or nextv != nextv or begin != begin or end  != end:
                     print("The end of columns")
-                for  p, k in  zip(range(int(pos), int(nextv)), range(int(begin), int(end))):
-                        bad_positions.append(pos)
-                        bad_positions.append(nextv)
-
+                for p in  range(int(begin), int(end)):
+                    if pos <= p <= end:
+                        bad_positions_start.append(pos)
+                        bad_position_end.append(pos)
+            print(list(set(bad_positions_start)))
+            print(list(set(bad_position_end)))
+            peptideTable = peptideTable[peptideTable.Position.isin(list(set(bad_positions_start))) == False]
+            peptideTable = peptideTable[peptideTable.Position.isin(list(set(bad_position_end))) == False]
+            peptideTable.to_csv("../data/peptide.tsv")
+            print(peptideTable)
+            return peptideTable
 
         except Exception as e:
-            print(list(set(bad_positions)))
-            peptideTable = peptideTable[peptideTable.Position.isin(list(set(bad_positions))) == False]
-            peptideTable.to_csv("../data/peptide.tsv")
+            print(e)
 
-            print(peptideTable)
+
+    def proteomeScout(self):
+        PTM_API = ProteomeScoutAPI('../data/all_moodifications.tsv')
+        PTM_API.get_PTMs('P05155')
+
 
 
 
@@ -193,7 +210,7 @@ class SelectingPeptides(ParserBuilding):
 def main():
     print("Hello")
     cls = SelectingPeptides('../data/proteins.xlsx')
-    cls.selectingByModifications()
+    cls.proteomeScout()
 
 
 
