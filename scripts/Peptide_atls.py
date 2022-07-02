@@ -1,38 +1,22 @@
 import pandas as pd
-from selenium.webdriver.chrome.options import Options
 import requests, sys
 from dataclasses import dataclass
 from pyteomics import parser
+from proteomeScoutAPI import ProteomeScoutAPI
+import pyiptmnet.api as api
 
-
-import numpy as np
-
-
+# get the information for Q15796
 
 
 #prefs = {"download.default_directory": 'C:\\Users\\bairamkulov_dd\\PycharmProjects\\MRM_SRM_PARSER/data'}
-import proteomeScoutAPI
 
-chrome_options = Options()
-chrome_options.add_argument("--disable-extensions")
-chrome_options.add_argument('--start-maximized')
-prefs = {
-    'profile.default_content_settings.popups': 0,
-    'download.default_directory': r'C:\Users\bairamkulov_dd\PycharmProjects\MRM_SRM_PARSER\csv\\',
-    "directory_upgrade": True
-}
-chrome_options.add_experimental_option("prefs", prefs)
 
 @dataclass(frozen = True)
 class ParserBuilding:
     file: str
 
     @property
-    def proteomeScout(self):
-        """Return list of proteins modifications"""
-
-    @property
-    def uniprot(self, iD):
+    def uniprot(self, id):
         """Return table of modification from uniprot"""
 
     @property
@@ -54,6 +38,18 @@ class ParserBuilding:
     @property
     def selectingByModifications(self):
         """Selecting peptides by PTM"""
+
+    @property
+    def proteinScout(self):
+        """Selecting peptides from proteinScout"""
+
+    @property
+    def iptmnet(self):
+        """Selecting modfifications from iptment"""
+
+    @property
+    def selectProteinScout(self):
+        return """Selecting peptides from proteinScout modifications"""
 
 
 class SelectingPeptides(ParserBuilding):
@@ -105,18 +101,22 @@ class SelectingPeptides(ParserBuilding):
             print(df)
             return df
         except Exception as e:
-            print(e)
+            print(f"Something want wrong in def uniprot(): {e}")
+
 
 
     def getTableOfModification(self):
         res_key = []
         data = pd.read_excel(self.file)
         print("##################################### Get PTM #############################")
-        for key in data['Unnamed: 0']:
-            res_key.append(self.uniprot(key))
-        modification_table =pd.concat(res_key)
-        modification_table.to_csv('../data/modification_table.txt')
-        return modification_table
+        try:
+            for key in data['Unnamed: 0']:
+                res_key.append(self.uniprot(key))
+            modification_table =pd.concat(res_key)
+            modification_table.to_csv('../data/modification_table.txt')
+            return modification_table
+        except Exception as e:
+            print(f"Something want wrong in getTableOfModification: {e}")
 
 
     def inSilicoDigestion(self):
@@ -150,6 +150,7 @@ class SelectingPeptides(ParserBuilding):
         peptides_table['difference_next_and_position'] = peptides_table['Next value'] - peptides_table['Position']
         peptides_table['difference_previous_and_position'] = peptides_table['Position'] - peptides_table['Previous']
         peptides_table = peptides_table[(peptides_table['difference_previous_and_position'] != 3) & (peptides_table['difference_next_and_position'] != 3)]
+        print(peptides_table)
         return peptides_table
 
 
@@ -174,6 +175,7 @@ class SelectingPeptides(ParserBuilding):
     def selectingByModifications(self):
         bad_positions_start = []
         bad_position_end = []
+        print("################## Selecting peptides by rule")
         peptideTable = self.selectingByRules()
         ptm = pd.read_csv('../data/modification_table.txt')
         merge_table  = pd.merge(peptideTable,ptm, on = 'accession')
@@ -197,9 +199,51 @@ class SelectingPeptides(ParserBuilding):
             print(e)
 
 
-    def proteomeScout(self):
-        PTM_API = ProteomeScoutAPI('../data/all_moodifications.tsv')
-        PTM_API.get_PTMs('P05155')
+    def proteinScout(self):
+        res_modifications = []
+        PTM_API = ProteomeScoutAPI('../data/all_modifications.tsv')
+        data = pd.read_excel(self.file)
+        print("##################################### Get PTM from ProteinScout #############################")
+        try:
+            for key in data['Unnamed: 0']:
+                mod = pd.DataFrame(PTM_API.get_PTMs(key))
+                mod['accession'] = key
+                mod['Position'] = mod[0]
+                mod['Aminoacid'] = mod[1]
+                mod['Modifications'] = mod[2]
+                mod = mod.drop([0, 1, 2], axis = 1)
+                res_modifications.append(mod)
+        except:
+            all_frame = pd.concat(res_modifications)
+            all_frame.to_csv('../data/proteinScout_modifications.csv')
+            print(all_frame)
+            return all_frame
+
+    def selectProteinScout(self):
+        bad_position_start = []
+        bad_position_end = []
+        peptidesTable = pd.read_csv('../data/peptide.tsv')
+        modificationsTable = pd.read_csv('../data/proteinScout_modifications.csv')
+        merge_table = pd.merge(peptidesTable, modificationsTable, on='accession')
+        print(merge_table)
+        try:
+            for pos, nextvin  in zip(merge_table['Position'], merge_table['Next value']):
+                 if pos != pos or nextvin != nextvin:
+                     print("The end of columns")
+                 for p in merge_table['Position']:
+                     if pos <= p <= nextvin:
+                         bad_position_start.append(pos)
+                         bad_position_end.append(nextvin)
+
+            print(list(set(bad_position_start)))
+            peptideTable = peptidesTable[peptidesTable.Position.isin(list(set(bad_position_start))) == False]
+            peptideTable.to_csv('../data/filtered_peptides.csv')
+        except Exception as e:
+            print(f"Something want wrong in selectProteinScout:{e}")
+
+
+
+
 
 
 
@@ -210,7 +254,7 @@ class SelectingPeptides(ParserBuilding):
 def main():
     print("Hello")
     cls = SelectingPeptides('../data/proteins.xlsx')
-    cls.proteomeScout()
+    cls.selectProteinScout()
 
 
 

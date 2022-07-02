@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2a267d0-da45-41fa-a5f9-719b018cc714" name="Changes" comment="First">
-      <change afterPath="$PROJECT_DIR$/proteomeScoutAPI/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/proteomeScoutAPI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/peptide.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/data/peptide.tsv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proteomeScoutAPI/proteomeScoutAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/proteomeScoutAPI/proteomeScoutAPI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/Peptide_atls.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/Peptide_atls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +36,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/bairamkulov_dd/PycharmProjects/MRM_SRM_PARSER",
+    "last_opened_file_path": "C:/Users/dbair/PycharmProjects/MRM_SRM_PARSER",
     "settings.editor.selected.configurable": "terminal"
   }
 }]]></component>
@@ -48,6 +45,7 @@
       <recent name="C:\Users\bairamkulov_dd\PycharmProjects\MRM_SRM_PARSER" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\dbair\PycharmProjects\MRM_SRM_PARSER\scripts" />
       <recent name="C:\Users\bairamkulov_dd\PycharmProjects\MRM_SRM_PARSER\drivers" />
       <recent name="C:\Users\bairamkulov_dd\PycharmProjects\MRM_SRM_PARSER\data" />
       <recent name="C:\Users\bairamkulov_dd\PycharmProjects\MRM_SRM_PARSER\scripts" />
@@ -146,6 +144,7 @@
       <workItem from="1656404170617" duration="40407000" />
       <workItem from="1656668953472" duration="723000" />
       <workItem from="1656682590979" duration="4753000" />
+      <workItem from="1656781570704" duration="5455000" />
     </task>
     <task id="LOCAL-00001" summary="First">
       <created>1656669057641</created>
